@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 
+import * as todoActions from 'business/todos/todo-actions';
+import * as todoService from 'business/todos/todo-service';
 
 import TodoItem from 'components/TodoItem';
 
@@ -15,10 +17,7 @@ export class TodoList extends Component {
   }
   addTodo() {
     if (this.state.todoName !== '') {
-      this.props.dispatch({
-        type: 'ADD_TODO',
-        payload: this.state.todoName
-      });
+      this.props.dispatch(todoActions.addTodo(this.state.todoName));
       this.setState({
         todoName: ''
       });
@@ -55,6 +54,6 @@ export class TodoList extends Component {
 
 export default connect(state => {
   return {
-    todolist: state.todos
+    todolist: todoService.getTodos(state)
   };
 })(TodoList);

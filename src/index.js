@@ -3,27 +3,17 @@ import reactDom from 'react-dom';
 
 import TodoList from 'components/TodoList';
 
-import {createStore} from 'redux';
+import {createStore, combineReducers} from 'redux';
 import {Provider} from 'react-redux';
 
-const initialState ={
-  todos: ['My todo', 'Other todo']
-};
+import todoReducer from 'business/todos/todo-reducer';
 
-const store = createStore((state = initialState, {type, payload}) => {
-  switch(type) {
-    case 'ADD_TODO':
-      return {
-        ...state,
-        todos: [
-          ...state.todos,
-          payload
-        ]
-      }
-    default:
-      return state;
-  }
+
+const rootReducer = combineReducers({
+  todos: todoReducer
 });
+
+const store = createStore(rootReducer, window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__());
 
 
 reactDom.render(

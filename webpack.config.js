@@ -24,7 +24,8 @@ module.exports = {
   ],
   resolve: {
     alias: {
-      components: `${__dirname}/src/components`
+      components: `${__dirname}/src/components`,
+      business: `${__dirname}/src/business`
     }
   }
 };
