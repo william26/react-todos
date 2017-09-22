@@ -23,9 +23,18 @@ export class TodoList extends Component {
       });
     }
   }
+  removeTodo(key) {
+    this.props.dispatch(todoActions.removeTodo(key));
+  }
   renderTodos() {
-    return this.props.todolist.map((todo, index) =>
-      <TodoItem key={index} content={todo} />
+    if (Object.keys(this.props.todolist).length === 0) {
+      return <div>No available todos</div>;
+    }
+    return Object.keys(this.props.todolist).map((key) =>
+      <TodoItem
+       onRemove={() => this.removeTodo(key)}
+       key={key}
+       content={this.props.todolist[key]} />
     );
   }
   render() {
